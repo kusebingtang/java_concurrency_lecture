@@ -5,7 +5,7 @@ public class MyObject {
     private int counter;
 
     public  synchronized  void increase(){
-        if(0 != this.counter){
+        while (0 != this.counter){
             try {
                 wait();
             } catch (InterruptedException e) {
@@ -14,11 +14,11 @@ public class MyObject {
         }
         this.counter++;
         System.out.println(this.counter);
-        notify();
+        notifyAll();
     }
 
     public synchronized  void  decrease(){
-        if(this.counter == 0){
+        while(this.counter == 0){
             try {
                 wait();
             } catch (InterruptedException e) {
@@ -27,6 +27,6 @@ public class MyObject {
         }
         this.counter--;
         System.out.println(this.counter);
-        notify();
+        notifyAll();
     }
 }
